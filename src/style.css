@@ -2,6 +2,13 @@ body {
     background-color: #f9f7fe;
 }
 
+.montserrat-appfont {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+  }
+
 .weather-app {
     background-color: white;
     width: 600px;
