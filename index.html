@@ -8,19 +8,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 </head>
 <body class="montserrat-appfont">
     <div class="weather-app">
         <header>
-            <form class="search-form">
-                <input type="search" placeholder="Enter a city..." required class="search-form-input"/>
+            <form class="search-form" id="search-form">
+                <input type="search" placeholder="Enter a city..." required class="search-form-input" id="search-form-input"/>
                 <input type="submit" value="Search" class="search-form-button"/>
             </form>
         </header>
         <main>
             <div class="weather-app-data">
                 <div>
-                    <h1 class="weather-app-city">
+                    <h1 class="weather-app-city" id="city">
                         Valencia
                     </h1>
                     <p class="weather-app-details">
@@ -43,5 +44,6 @@
             <a href="https://rianna-shecodes-weatherapp.netlify.app" target="_blank">Netlify</a>
         </footer>
     </div>
+    <script src="src/app.js"></script>
 </body>
 </html>
