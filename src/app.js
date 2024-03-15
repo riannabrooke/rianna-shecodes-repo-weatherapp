@@ -50,8 +50,34 @@ function handleSearch(event) {
     getCityData(searchInput.value);
 }
 
+function displayForecast() {
+    let days = ["Tue", "Wed", "Thurs", "Fri", "Sat"];
+    let forecastHTML = "";
+
+    days.forEach(function (arrayValue) {
+        forecastHTML =
+            forecastHTML + `
+            <div class="row">
+            <div class="section">
+            <div class="weather-forecast-day">${arrayValue}</div>
+            <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png" width="50">
+            <div class="weather-forecast-temps">
+            <span class="weather-forecast-max-temp">18°</span>
+            <span class="weather-forecast-min-temp">12°</span>
+            </div>
+            </div>
+            </div>
+            `
+    });
+    
+    let forecast = document.querySelector("#forecast");
+    forecast.innerHTML = forecastHTML;
+}
+
+
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearch);
 
 
 getCityData("Valencia");
+displayForecast();
