@@ -1,5 +1,4 @@
 function refreshWeather(response) {
-    console.log(response.data)
     let temperatureElement = document.querySelector("#temperature-value");
     let temperature = response.data.temperature.current;
     let cityElement = document.querySelector("#city");
@@ -23,6 +22,8 @@ function refreshWeather(response) {
     windSpeedElement.innerHTML = windSpeed;
     timeElement.innerHTML = formatDate(time);
     iconElement.innerHTML = icon;
+
+    getForecast(response.data.city);
 }
 
 function formatDate(time) {
@@ -50,26 +51,41 @@ function handleSearch(event) {
     getCityData(searchInput.value);
 }
 
-function displayForecast() {
-    let days = ["Tue", "Wed", "Thurs", "Fri", "Sat"];
+function formatWeekday(timestamp) {
+    let date = new Date (timestamp * 1000);
+    let days =["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+    let weekday = days[date.getDay()];
+    
+    return weekday;
+}
+
+function getForecast(city) {
+   let apiKey = "7d4d0f8bca21ta4eb4313oad2f2b1ec4";
+   let apiURL = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+   axios(apiURL).then(displayForecast);
+}
+
+function displayForecast(response) {
     let forecastHTML = "";
 
-    days.forEach(function (arrayValue) {
+    response.data.daily.forEach(function (value, index) {  
+        let dayOfWeek = formatWeekday(value.time);      
+        if (index < 5)
+
         forecastHTML =
             forecastHTML + `
             <div class="row">
             <div class="section">
-            <div class="weather-forecast-day">${arrayValue}</div>
-            <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png" width="50">
+            <div class="weather-forecast-day">${dayOfWeek}</div>
+            <img src="${value.condition.icon_url}" class="weather-forecast-icon"/>
             <div class="weather-forecast-temps">
-            <span class="weather-forecast-max-temp">18°</span>
-            <span class="weather-forecast-min-temp">12°</span>
+            <span class="weather-forecast-max-temp">${Math.round(value.temperature.maximum)}°</span>
+            <span class="weather-forecast-min-temp">${Math.round(value.temperature.minimum)}°</span>
             </div>
             </div>
             </div>
             `
     });
-    
     let forecast = document.querySelector("#forecast");
     forecast.innerHTML = forecastHTML;
 }
@@ -80,4 +96,3 @@ searchFormElement.addEventListener("submit", handleSearch);
 
 
 getCityData("Valencia");
-displayForecast();

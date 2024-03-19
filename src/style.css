@@ -98,6 +98,10 @@ main {
     justify-content: space-around;
 }
 
+.weather-forecast-icon {
+    width: 88px;
+}
+
 .weather-forecast-temps {
     font-size: 13px;
 }
